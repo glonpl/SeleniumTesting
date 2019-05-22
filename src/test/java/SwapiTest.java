@@ -15,4 +15,14 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class SwapiTest {
 
+
+    @Test
+    public void CanWeGetMainGUIPage(){
+        WebDriver driver = new HtmlUnitDriver(BrowserVersion.BEST_SUPPORTED,true);
+
+
+
+
+
+    }
 }
