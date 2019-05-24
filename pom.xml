@@ -9,7 +9,7 @@
     <version>1.0-SNAPSHOT</version>
 <dependencies>
 
-    <!--TO FUCKUPUJE HTMLDRIVER-->
+    <!--TO PSUJE HTMLDRIVER-->
     <dependency>
         <groupId>org.seleniumhq.selenium</groupId>
         <artifactId>selenium-firefox-driver</artifactId>
