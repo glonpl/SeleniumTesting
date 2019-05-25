@@ -1,7 +1,3 @@
-
-//Testing https://swapi.co/
-
-
 import Pages.LoginPage;
 import io.github.bonigarcia.SeleniumExtension;
 import org.junit.jupiter.api.AfterEach;
@@ -11,6 +7,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -20,19 +18,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @ExtendWith(SeleniumExtension.class)
 public class SwapiTest {
- //   String driverPath = "C:\\Users\\Glon\\Desktop\\Nowy folder\\Nowy folder\\geckodriver.exe";
-
-//    @Test
-//    public void CanWeGetMainGUIPage(){
-//        WebDriver driver;
-//        System.setProperty("webdriver.gecko.driver", driverPath);
-//        DesiredCapabilities capabilities = DesiredCapabilities.firefox();
-//        capabilities.setCapability("marionette", true);
-//        driver = new FirefoxDriver(capabilities);
-//        driver.get("https://swapi.co/");
-//        assertTrue(driver.getTitle().contains("Star Wars"));
-//        driver.quit();
-//    }
 private WebDriver driver;
 private WebDriverWait wait;
     public SwapiTest() {
@@ -58,7 +43,20 @@ private WebDriverWait wait;
     }
 
 
-
+    @Test
+    public void AreWeLoggedInAsAdminHeadlessFirefox(){
+        driver.quit();
+        System.setProperty("webdriver.gecko.driver", "resources/geckodriver.exe");
+        FirefoxOptions options = new FirefoxOptions();
+        options.setHeadless(true);
+        this.driver = new FirefoxDriver(options);
+        driver.get("http://bookcatalog.azurewebsites.net/Account/Login");
+        new WebDriverWait(driver,5);
+        //LoginPage loginPage = PageFactory.initElements(driver, LoginPage.class);
+        //loginPage.logIn("admin@admin.com","admin1");
+        //new WebDriverWait(driver,5);
+        assertTrue(driver.findElement(By.id("UserName")).getText().contains("admin"));
+    }
     @Test
     public void CanWeGetMainGUIPageHeadlessa(){
 
