@@ -7,7 +7,7 @@ import org.openqa.selenium.support.PageFactory;
 
 public class LoginPage {
     public String UsernameLoggedin;
-
+    public WebDriver driver;
     @FindBy(id="Email")
     private WebElement emailField;
 
@@ -29,7 +29,9 @@ public class LoginPage {
 
 
     public LoginPage(WebDriver driver) {
-        PageFactory.initElements(driver, this);
+
+this.driver= driver;
+        driver.get("http://bookcatalog.azurewebsites.net/Account/Login");
     }
 
     public void fillEmail(String email)

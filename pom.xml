@@ -7,146 +7,295 @@
     <groupId>RatajczykProject</groupId>
     <artifactId>SeleniumTesting</artifactId>
     <version>1.0-SNAPSHOT</version>
-<dependencies>
 
 
 
 
-    <!--<dependency>-->
-        <!--<groupId>org.seleniumhq.selenium</groupId>-->
-        <!--<artifactId>selenium-htmlunit-driver</artifactId>-->
-        <!--<version>2.52.0</version>-->
-    <!--</dependency>-->
-    <dependency>
-        <groupId>org.hamcrest</groupId>
-        <artifactId>hamcrest-all</artifactId>
-        <version>1.3</version>
-    </dependency>
-    <!--<dependency>-->
-        <!--<groupId>org.junit.jupiter</groupId>-->
-        <!--<artifactId>junit-jupiter-api</artifactId>-->
-        <!--<version>5.2.0</version>-->
-        <!--<scope>test</scope>-->
-    <!--</dependency>-->
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <java.version>1.8</java.version>
+        <junit.jupiter.version>5.2.0</junit.jupiter.version>
+        <junit.vintage.version>5.2.0</junit.vintage.version>
+        <junit.platform.version>1.2.0</junit.platform.version>
+        <jbehave.core.version>4.3</jbehave.core.version>
+        <jbehave.site.version>3.3</jbehave.site.version>
+        <embeddables>**/*Stories.java</embeddables>
+    </properties>
 
-    <!--<dependency>-->
-    <!--<groupId>org.seleniumhq.selenium</groupId>-->
-    <!--<artifactId>selenium-remote-driver</artifactId>-->
-    <!--<version>2.44.0</version>-->
-    <!--</dependency>-->
-    <dependency>
-    <groupId>org.seleniumhq.selenium</groupId>
-    <artifactId>selenium-java</artifactId>
-    <version>3.141.59</version>
-    </dependency>
-    <dependency>
-    <groupId>org.junit.jupiter</groupId>
-    <artifactId>junit-jupiter-api</artifactId>
-    <version>5.2.0</version>
-    <scope>test</scope>
-    </dependency>
-    <!--&lt;!&ndash;4 best supported&ndash;&gt;-->
-    <!--<dependency>-->
-    <!--<groupId>net.sourceforge.htmlunit</groupId>-->
-    <!--<artifactId>htmlunit</artifactId>-->
-    <!--<version>2.32</version>-->
-    <!--</dependency>-->
-    <!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-htmlunit-driver -->
+    <dependencies>
+        <dependency>
+            <groupId>org.jbehave</groupId>
+            <artifactId>jbehave-core</artifactId>
+            <version>4.3</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jbehave</groupId>
+            <artifactId>jbehave-core</artifactId>
+            <version>4.3</version>
+            <classifier>resources</classifier>
+            <type>zip</type>
+        </dependency>
+        <dependency>
+            <groupId>org.jbehave.site</groupId>
+            <artifactId>jbehave-site-resources</artifactId>
+            <version>3.3</version>
+            <type>zip</type>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <version>${junit.jupiter.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.vintage</groupId>
+            <artifactId>junit-vintage-engine</artifactId>
+            <version>${junit.vintage.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <!-- Only required to run tests in an IDE that bundles an older version -->
+        <dependency>
+            <groupId>org.junit.platform</groupId>
+            <artifactId>junit-platform-launcher</artifactId>
+            <version>${junit.platform.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-java</artifactId>
+            <version>3.12.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-server</artifactId>
+            <version>3.12.0</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.github.bonigarcia</groupId>
+            <artifactId>selenium-jupiter</artifactId>
+            <version>2.1.1</version>
+            <scope>test</scope>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/io.github.bonigarcia/webdrivermanager -->
+        <dependency>
+            <groupId>io.github.bonigarcia</groupId>
+            <artifactId>webdrivermanager</artifactId>
+            <version>2.2.1</version>
+        </dependency>
+        <dependency>
+            <groupId>net.sourceforge.htmlunit</groupId>
+            <artifactId>htmlunit</artifactId>
+            <version>2.34.1</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
 
-    <!--<dependency>-->
-    <!--<groupId>io.github.bonigarcia</groupId>-->
-    <!--<artifactId>selenium-jupiter</artifactId>-->
-    <!--<version>3.2.1</version>-->
-    <!--<scope>test</scope>-->
-    <!--</dependency>-->
-    <!--<dependency>-->
-        <!--<groupId>junit</groupId>-->
-        <!--<artifactId>junit</artifactId>-->
-        <!--<version>4.12</version>-->
-        <!--<scope>test</scope>-->
-    <!--</dependency>-->
-
-</dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.7.0</version>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.21.0</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.junit.platform</groupId>
+                        <artifactId>junit-platform-surefire-provider</artifactId>
+                        <version>${junit.platform.version}</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+        </plugins>
+    </build>
 </project>
 
 
-        <!--<?xml version="1.0" encoding="UTF-8"?>-->
-<!--<project xmlns="http://maven.apache.org/POM/4.0.0"-->
-         <!--xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"-->
-         <!--xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">-->
-<!--<modelVersion>4.0.0</modelVersion>-->
 
-<!--<groupId>RatajczykProject</groupId>-->
-<!--<artifactId>SeleniumTesting</artifactId>-->
-<!--<version>1.0-SNAPSHOT</version>-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <!--<dependencies>-->
-    <!--<dependency>-->
-        <!--<groupId>org.seleniumhq.selenium</groupId>-->
-        <!--<artifactId>selenium-java</artifactId>-->
-        <!--<version>3.141.59</version>-->
-    <!--</dependency>-->
-
-    <!--<dependency>-->
-        <!--<groupId>junit</groupId>-->
-        <!--<artifactId>junit</artifactId>-->
-        <!--<version>4.12</version>-->
-        <!--<scope>test</scope>-->
-    <!--</dependency>-->
-    <!--&lt;!&ndash; https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-firefox-driver &ndash;&gt;-->
-    <!--<dependency>-->
-        <!--<groupId>org.seleniumhq.selenium</groupId>-->
-        <!--<artifactId>selenium-firefox-driver</artifactId>-->
-        <!--<version>3.141.59</version>-->
-    <!--</dependency>-->
-    <!--<dependency>-->
-        <!--<groupId>net.sourceforge.htmlunit</groupId>-->
-        <!--<artifactId>htmlunit</artifactId>-->
-        <!--<version>2.32</version>-->
-    <!--</dependency>-->
-    <!--&lt;!&ndash; https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-htmlunit-driver &ndash;&gt;-->
-    <!--<dependency>-->
-        <!--<groupId>org.seleniumhq.selenium</groupId>-->
-        <!--<artifactId>selenium-htmlunit-driver</artifactId>-->
-        <!--<version>2.52.0</version>-->
-    <!--</dependency>-->
-
-
-
-
-    <!--&lt;!&ndash; https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-remote-driver &ndash;&gt;-->
-    <!--<dependency>-->
-        <!--<groupId>org.seleniumhq.selenium</groupId>-->
-        <!--<artifactId>selenium-remote-driver</artifactId>-->
-        <!--<version>2.44.0</version>-->
-    <!--</dependency>-->
-    <!--&lt;!&ndash; https://mvnrepository.com/artifact/org.assertj/assertj-core &ndash;&gt;-->
-    <!--<dependency>-->
-        <!--<groupId>org.assertj</groupId>-->
-        <!--<artifactId>assertj-core</artifactId>-->
-        <!--<version>3.8.0</version>-->
-        <!--<scope>test</scope>-->
-    <!--</dependency>-->
-
-    <!--<dependency>-->
-        <!--<groupId>io.github.bonigarcia</groupId>-->
-        <!--<artifactId>selenium-jupiter</artifactId>-->
-        <!--<version>3.2.1</version>-->
-        <!--<scope>test</scope>-->
-    <!--</dependency>-->
     <!--<dependency>-->
         <!--<groupId>org.hamcrest</groupId>-->
         <!--<artifactId>hamcrest-all</artifactId>-->
         <!--<version>1.3</version>-->
     <!--</dependency>-->
+
     <!--<dependency>-->
-        <!--<groupId>org.junit.jupiter</groupId>-->
-        <!--<artifactId>junit-jupiter-api</artifactId>-->
-        <!--<version>5.2.0</version>-->
-        <!--<scope>test</scope>-->
+    <!--<groupId>org.seleniumhq.selenium</groupId>-->
+    <!--<artifactId>selenium-java</artifactId>-->
+    <!--<version>3.141.59</version>-->
+    <!--</dependency>-->
+    <!--<dependency>-->
+    <!--<groupId>org.junit.jupiter</groupId>-->
+    <!--<artifactId>junit-jupiter-api</artifactId>-->
+    <!--<version>5.2.0</version>-->
+    <!--<scope>test</scope>-->
     <!--</dependency>-->
 
+    <!--<dependency>-->
+        <!--<groupId>io.github.bonigarcia</groupId>-->
+        <!--<artifactId>webdrivermanager</artifactId>-->
+        <!--<version>2.2.1</version>-->
+    <!--</dependency>-->
+    <!--<dependency>-->
+        <!--<groupId>io.github.bonigarcia</groupId>-->
+        <!--<artifactId>selenium-jupiter</artifactId>-->
+        <!--<version>2.1.1</version>-->
+        <!--<scope>test</scope>-->
+    <!--</dependency>-->
+    <!--&lt;!&ndash;<dependency>&ndash;&gt;-->
+    <!--&lt;!&ndash;<groupId>net.sourceforge.htmlunit</groupId>&ndash;&gt;-->
+    <!--&lt;!&ndash;<artifactId>htmlunit</artifactId>&ndash;&gt;-->
+    <!--&lt;!&ndash;<version>2.32</version>&ndash;&gt;-->
+    <!--&lt;!&ndash;</dependency>&ndash;&gt;-->
+    <!--&lt;!&ndash; https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-htmlunit-driver &ndash;&gt;-->
+    <!--&lt;!&ndash;<dependency>&ndash;&gt;-->
+    <!--&lt;!&ndash;<groupId>org.seleniumhq.selenium</groupId>&ndash;&gt;-->
+    <!--&lt;!&ndash;<artifactId>selenium-htmlunit-driver</artifactId>&ndash;&gt;-->
+    <!--&lt;!&ndash;<version>2.52.0</version>&ndash;&gt;-->
+    <!--&lt;!&ndash;</dependency>&ndash;&gt;-->
 <!--</dependencies>-->
 <!--</project>-->
+        <!--&lt;!&ndash;<dependency>&ndash;&gt;-->
+        <!--&lt;!&ndash;<groupId>org.junit.jupiter</groupId>&ndash;&gt;-->
+        <!--&lt;!&ndash;<artifactId>junit-jupiter-api</artifactId>&ndash;&gt;-->
+        <!--&lt;!&ndash;<version>5.2.0</version>&ndash;&gt;-->
+        <!--&lt;!&ndash;<scope>test</scope>&ndash;&gt;-->
+        <!--&lt;!&ndash;</dependency>&ndash;&gt;-->
+
+        <!--&lt;!&ndash;<dependency>&ndash;&gt;-->
+        <!--&lt;!&ndash;<groupId>org.seleniumhq.selenium</groupId>&ndash;&gt;-->
+        <!--&lt;!&ndash;<artifactId>selenium-remote-driver</artifactId>&ndash;&gt;-->
+        <!--&lt;!&ndash;<version>2.44.0</version>&ndash;&gt;-->
+        <!--&lt;!&ndash;</dependency>&ndash;&gt;-->
+        <!--&lt;!&ndash;&lt;!&ndash;4 best supported&ndash;&gt;&ndash;&gt;-->
+        <!--&lt;!&ndash;<dependency>&ndash;&gt;-->
+        <!--&lt;!&ndash;<groupId>net.sourceforge.htmlunit</groupId>&ndash;&gt;-->
+        <!--&lt;!&ndash;<artifactId>htmlunit</artifactId>&ndash;&gt;-->
+        <!--&lt;!&ndash;<version>2.32</version>&ndash;&gt;-->
+        <!--&lt;!&ndash;</dependency>&ndash;&gt;-->
+        <!--&lt;!&ndash; https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-htmlunit-driver &ndash;&gt;-->
+        <!--&lt;!&ndash;<dependency>&ndash;&gt;-->
+        <!--&lt;!&ndash;<groupId>io.github.bonigarcia</groupId>&ndash;&gt;-->
+        <!--&lt;!&ndash;<artifactId>selenium-jupiter</artifactId>&ndash;&gt;-->
+        <!--&lt;!&ndash;<version>3.2.1</version>&ndash;&gt;-->
+        <!--&lt;!&ndash;<scope>test</scope>&ndash;&gt;-->
+        <!--&lt;!&ndash;</dependency>&ndash;&gt;-->
+        <!--&lt;!&ndash;<dependency>&ndash;&gt;-->
+        <!--&lt;!&ndash;<groupId>junit</groupId>&ndash;&gt;-->
+        <!--&lt;!&ndash;<artifactId>junit</artifactId>&ndash;&gt;-->
+        <!--&lt;!&ndash;<version>4.12</version>&ndash;&gt;-->
+        <!--&lt;!&ndash;<scope>test</scope>&ndash;&gt;-->
+        <!--&lt;!&ndash;</dependency>&ndash;&gt;-->
+        <!--&lt;!&ndash;<dependency>&ndash;&gt;-->
+        <!--&lt;!&ndash;<groupId>org.assertj</groupId>&ndash;&gt;-->
+        <!--&lt;!&ndash;<artifactId>assertj-core</artifactId>&ndash;&gt;-->
+        <!--&lt;!&ndash;<version>3.8.0</version>&ndash;&gt;-->
+        <!--&lt;!&ndash;<scope>test</scope>&ndash;&gt;-->
+        <!--&lt;!&ndash;</dependency>&ndash;&gt;-->
+        <!--&lt;!&ndash;<?xml version="1.0" encoding="UTF-8"?>&ndash;&gt;-->
+<!--&lt;!&ndash;<project xmlns="http://maven.apache.org/POM/4.0.0"&ndash;&gt;-->
+         <!--&lt;!&ndash;xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"&ndash;&gt;-->
+         <!--&lt;!&ndash;xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">&ndash;&gt;-->
+<!--&lt;!&ndash;<modelVersion>4.0.0</modelVersion>&ndash;&gt;-->
+
+<!--&lt;!&ndash;<groupId>RatajczykProject</groupId>&ndash;&gt;-->
+<!--&lt;!&ndash;<artifactId>SeleniumTesting</artifactId>&ndash;&gt;-->
+<!--&lt;!&ndash;<version>1.0-SNAPSHOT</version>&ndash;&gt;-->
+<!--&lt;!&ndash;<dependencies>&ndash;&gt;-->
+    <!--&lt;!&ndash;<dependency>&ndash;&gt;-->
+        <!--&lt;!&ndash;<groupId>org.seleniumhq.selenium</groupId>&ndash;&gt;-->
+        <!--&lt;!&ndash;<artifactId>selenium-java</artifactId>&ndash;&gt;-->
+        <!--&lt;!&ndash;<version>3.141.59</version>&ndash;&gt;-->
+    <!--&lt;!&ndash;</dependency>&ndash;&gt;-->
+
+    <!--&lt;!&ndash;<dependency>&ndash;&gt;-->
+        <!--&lt;!&ndash;<groupId>junit</groupId>&ndash;&gt;-->
+        <!--&lt;!&ndash;<artifactId>junit</artifactId>&ndash;&gt;-->
+        <!--&lt;!&ndash;<version>4.12</version>&ndash;&gt;-->
+        <!--&lt;!&ndash;<scope>test</scope>&ndash;&gt;-->
+    <!--&lt;!&ndash;</dependency>&ndash;&gt;-->
+    <!--&lt;!&ndash;&lt;!&ndash; https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-firefox-driver &ndash;&gt;&ndash;&gt;-->
+    <!--&lt;!&ndash;<dependency>&ndash;&gt;-->
+        <!--&lt;!&ndash;<groupId>org.seleniumhq.selenium</groupId>&ndash;&gt;-->
+        <!--&lt;!&ndash;<artifactId>selenium-firefox-driver</artifactId>&ndash;&gt;-->
+        <!--&lt;!&ndash;<version>3.141.59</version>&ndash;&gt;-->
+    <!--&lt;!&ndash;</dependency>&ndash;&gt;-->
+    <!--&lt;!&ndash;<dependency>&ndash;&gt;-->
+        <!--&lt;!&ndash;<groupId>net.sourceforge.htmlunit</groupId>&ndash;&gt;-->
+        <!--&lt;!&ndash;<artifactId>htmlunit</artifactId>&ndash;&gt;-->
+        <!--&lt;!&ndash;<version>2.32</version>&ndash;&gt;-->
+    <!--&lt;!&ndash;</dependency>&ndash;&gt;-->
+    <!--&lt;!&ndash;&lt;!&ndash; https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-htmlunit-driver &ndash;&gt;&ndash;&gt;-->
+    <!--&lt;!&ndash;<dependency>&ndash;&gt;-->
+        <!--&lt;!&ndash;<groupId>org.seleniumhq.selenium</groupId>&ndash;&gt;-->
+        <!--&lt;!&ndash;<artifactId>selenium-htmlunit-driver</artifactId>&ndash;&gt;-->
+        <!--&lt;!&ndash;<version>2.52.0</version>&ndash;&gt;-->
+    <!--&lt;!&ndash;</dependency>&ndash;&gt;-->
+
+
+
+
+    <!--&lt;!&ndash;&lt;!&ndash; https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-remote-driver &ndash;&gt;&ndash;&gt;-->
+    <!--&lt;!&ndash;<dependency>&ndash;&gt;-->
+        <!--&lt;!&ndash;<groupId>org.seleniumhq.selenium</groupId>&ndash;&gt;-->
+        <!--&lt;!&ndash;<artifactId>selenium-remote-driver</artifactId>&ndash;&gt;-->
+        <!--&lt;!&ndash;<version>2.44.0</version>&ndash;&gt;-->
+    <!--&lt;!&ndash;</dependency>&ndash;&gt;-->
+    <!--&lt;!&ndash;&lt;!&ndash; https://mvnrepository.com/artifact/org.assertj/assertj-core &ndash;&gt;&ndash;&gt;-->
+    <!--&lt;!&ndash;<dependency>&ndash;&gt;-->
+        <!--&lt;!&ndash;<groupId>org.assertj</groupId>&ndash;&gt;-->
+        <!--&lt;!&ndash;<artifactId>assertj-core</artifactId>&ndash;&gt;-->
+        <!--&lt;!&ndash;<version>3.8.0</version>&ndash;&gt;-->
+        <!--&lt;!&ndash;<scope>test</scope>&ndash;&gt;-->
+    <!--&lt;!&ndash;</dependency>&ndash;&gt;-->
+
+    <!--&lt;!&ndash;<dependency>&ndash;&gt;-->
+        <!--&lt;!&ndash;<groupId>io.github.bonigarcia</groupId>&ndash;&gt;-->
+        <!--&lt;!&ndash;<artifactId>selenium-jupiter</artifactId>&ndash;&gt;-->
+        <!--&lt;!&ndash;<version>3.2.1</version>&ndash;&gt;-->
+        <!--&lt;!&ndash;<scope>test</scope>&ndash;&gt;-->
+    <!--&lt;!&ndash;</dependency>&ndash;&gt;-->
+    <!--&lt;!&ndash;<dependency>&ndash;&gt;-->
+        <!--&lt;!&ndash;<groupId>org.hamcrest</groupId>&ndash;&gt;-->
+        <!--&lt;!&ndash;<artifactId>hamcrest-all</artifactId>&ndash;&gt;-->
+        <!--&lt;!&ndash;<version>1.3</version>&ndash;&gt;-->
+    <!--&lt;!&ndash;</dependency>&ndash;&gt;-->
+    <!--&lt;!&ndash;<dependency>&ndash;&gt;-->
+        <!--&lt;!&ndash;<groupId>org.junit.jupiter</groupId>&ndash;&gt;-->
+        <!--&lt;!&ndash;<artifactId>junit-jupiter-api</artifactId>&ndash;&gt;-->
+        <!--&lt;!&ndash;<version>5.2.0</version>&ndash;&gt;-->
+        <!--&lt;!&ndash;<scope>test</scope>&ndash;&gt;-->
+    <!--&lt;!&ndash;</dependency>&ndash;&gt;-->
+
+<!--&lt;!&ndash;</dependencies>&ndash;&gt;-->
+<!--&lt;!&ndash;</project>&ndash;&gt;-->
 
 
 

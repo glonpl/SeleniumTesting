@@ -2,15 +2,25 @@
 //Testing https://swapi.co/
 
 
+import Pages.LoginPage;
+import io.github.bonigarcia.SeleniumExtension;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
+import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+
+@ExtendWith(SeleniumExtension.class)
 public class SwapiTest {
-    String driverPath = "C:\\Users\\Glon\\Desktop\\Nowy folder\\Nowy folder\\geckodriver.exe";
+ //   String driverPath = "C:\\Users\\Glon\\Desktop\\Nowy folder\\Nowy folder\\geckodriver.exe";
 
 //    @Test
 //    public void CanWeGetMainGUIPage(){
@@ -23,45 +33,39 @@ public class SwapiTest {
 //        assertTrue(driver.getTitle().contains("Star Wars"));
 //        driver.quit();
 //    }
-HtmlUnitDriver driver;
-
+private WebDriver driver;
+private WebDriverWait wait;
+    public SwapiTest() {
+        this.driver = new HtmlUnitDriver();
+        wait = new WebDriverWait(driver, 10);
+    }
     @BeforeEach
-    public void Setup(){
-     driver=new HtmlUnitDriver();
+    public void Setup()throws Exception {
+      //  driver.get("http://bookcatalog.azurewebsites.net/Account/Login");
+        LoginPage loginPage = PageFactory.initElements(driver, LoginPage.class);
+        loginPage.logIn("admin@admin.com","admin1");
     }
     @AfterEach
     public void Cleanup(){
         driver.quit();
 
     }
+
     @Test
-    public void CanWeGetMainGUIPageHeadless(){
-        driver.get("https://swapi.co/");
-        assertTrue(driver.getTitle().contains("Star Wars"));
+    public void AreWeLoggedInAsAdminHeadless(){
+        new WebDriverWait(driver,10);
+       assertTrue(driver.findElement(By.id("UserName")).getText().contains("admin"));
     }
 
 
 
     @Test
     public void CanWeGetMainGUIPageHeadlessa(){
-//WebDriver driver;
-//        // this does actually work on HtmlUnitDriver
-//        driver = new HtmlUnitDriver(BrowserVersion.getDefault(), true);
-//        ((HtmlUnitDriver)driver).setJavascriptEnabled(true);
-////driver = new SafariDriver();
-//        driver.get("http://swapi.co/api/people/2/?format=api");
-//
-//        WebElement response = driver.findElement(By.cssSelector("div.response-info > pre"));
-//
-//        String json = response.getText();
-//
-//
-//    //    assertThat(json.contains("C-3PO")).isNotEqualTo(false);
-//
-//        driver.quit();
-//
-//
-//    }
+
+
+
+
+   }
 
 
 
@@ -98,5 +102,5 @@ HtmlUnitDriver driver;
 //        driver.quit();
 //
 //
-    }
+ //   }
 }
