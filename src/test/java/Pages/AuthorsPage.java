@@ -1,4 +1,4 @@
-package Pages;
+package pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -9,91 +9,91 @@ import java.util.List;
 public class AuthorsPage {
     public WebDriver driver;
 
-    @FindBy(name = "Title")
-    private WebElement title;
+    @FindBy(name = "FirstName")
+    private WebElement firstName;
 
-    @FindBy(id = "Length")
-    private WebElement length;
+    @FindBy(id = "LastName")
+    private WebElement lastName;
 
-    @FindBy(id = "ReleaseDate")
-    private WebElement releaseDate;
+    @FindBy(id = "CreateButton")
+    private WebElement createButton;
 
-    @FindBy(name = "Price")
-    private WebElement price;
-
-    @FindBy(id = "AuthorId")
-    private WebElement authorID;
-
-    @FindBy(id = "BookId")
-    private WebElement BookId;
+    @FindBy(className = "text-danger")
+    private WebElement validationError;
 
     @FindBy(name = "SearchString")
     private WebElement searchBar;
 
+    @FindBy(id = "AuthorId")
+    private WebElement authorDelete;
 
     @FindBy(xpath = "//table[@class='table']/tbody/tr")
     private List<WebElement> tableContent;
 
 
-    public AuthorsPage(WebDriver driver){
+    public AuthorsPage(WebDriver driver) {
         this.driver = driver;
     }
 
-    public void toCreate(){
-        driver.get("http://bookcatalog.azurewebsites.net/Books/Create");
+    public void toAuthors() {
+
+        driver.get("http://bookcatalog.azurewebsites.net/Authors");
+    }
+
+    public void toCreate() {
+        driver.get("http://bookcatalog.azurewebsites.net/Authors/Create");
 
     }
 
-    public void createBook(String title, String length, String date, String price, String authorID){
-        this.title.sendKeys(title);
-        this.length.sendKeys(length);
-        this.releaseDate.sendKeys(date);
-        this.releaseDate.sendKeys(date);
-        this.price.sendKeys(price);
-        this.authorID.sendKeys(authorID);
-        this.authorID.submit();
+    public void createAuthor(String firstN, String lastN) {
+        this.firstName.sendKeys(firstN);
+        this.lastName.sendKeys(lastN);
+        this.createButton.click();
     }
 
-    public void searchBooks(String searchPhrase){
+    public void searchAuthors(String searchPhrase) {
         searchBar.sendKeys(searchPhrase);
         searchBar.submit();
     }
 
-    public String getBook(int id){
-        WebElement tr = driver.findElement(By.xpath("(//table[@class='table']/tbody/tr)[" + id + "]"));
+    public String getAuthor(int position) {
+        WebElement tr = driver.findElement(By.xpath("(//table[@class='table']/tbody/tr)[" + position + "]"));
         return tr.getText();
     }
 
-    public void editBook(int id, String title, String length, String date, String price, String authorID){
+    public void EditAuthor(int id, String firstN, String lastN) {
         driver.get("http://bookcatalog.azurewebsites.net/Authors/Edit/" + id);
-        this.title.clear();
-        this.title.sendKeys(title);
+        this.firstName.clear();
+        this.firstName.sendKeys(firstN);
 
-        this.length.clear();
-        this.length.sendKeys(length);
+        this.lastName.clear();
+        this.lastName.sendKeys(lastN);
 
-        this.releaseDate.clear();
-        this.releaseDate.sendKeys(date);
-
-        this.price.clear();
-        this.price.sendKeys(price);
-
-        this.authorID.clear();
-        this.authorID.sendKeys(authorID);
-
-        this.authorID.submit();
+        this.lastName.submit();
     }
 
-    public int howManyBooks(){
+    public int howManyAuthors() {
         return tableContent.size();
     }
 
-    public List<WebElement> getBooks(){
+    public List<WebElement> getAuthors() {
         return tableContent;
     }
 
 
-    public String getLastBook() {
+    public String getLastAuthor() {
         WebElement tr = driver.findElement(By.xpath("(//table[@class='table']/tbody/tr)[last()]"));
         return tr.getText();
     }
+    public Boolean findUnvalidMessage(String message){
+        return validationError.getText().contains(message);
+    }
+
+
+
+    public void deleteLastAuthor(){
+        WebElement tr = driver.findElement(By.xpath("(//table[@class='table']/tbody/tr[last()]/td[last()]/a[last()])"));
+        driver.navigate().to(tr.getAttribute("href"));
+        authorDelete.submit();
+    }
+}

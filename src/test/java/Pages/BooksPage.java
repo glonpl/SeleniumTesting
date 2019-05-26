@@ -1,4 +1,4 @@
-package Pages;
+package pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -64,25 +64,7 @@ public class BooksPage {
         return tr.getText();
     }
 
-    public void editBook(int id, String title, String length, String date, String price, String authorID){
-        driver.get("http://bookcatalog.azurewebsites.net/Authors/Edit/" + id);
-        this.title.clear();
-        this.title.sendKeys(title);
 
-        this.length.clear();
-        this.length.sendKeys(length);
-
-        this.releaseDate.clear();
-        this.releaseDate.sendKeys(date);
-
-        this.price.clear();
-        this.price.sendKeys(price);
-
-        this.authorID.clear();
-        this.authorID.sendKeys(authorID);
-
-        this.authorID.submit();
-    }
 
     public int howManyBooks(){
         return tableContent.size();

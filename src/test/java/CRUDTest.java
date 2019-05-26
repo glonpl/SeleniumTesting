@@ -1,48 +1,99 @@
-import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
+import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import pages.AuthorsPage;
+import pages.LoginPage;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import org.openqa.selenium.WebDriver;
-import java.util.concurrent.TimeUnit;
 
 public class CRUDTest {
+    WebDriverWait wait;
     private WebDriver driver;
-   // String driverPath = "C:\\Users\\Glon\\Desktop\\Nowy folder\\Nowy folder\\geckodriver.exe";
-@BeforeEach
-public void setUp() {
-    driver = new FirefoxDriver();
-    driver.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
-}
+  //  private WebDriver driver2;
+
+    public CRUDTest() {
+      //  System.setProperty("webdriver.chrome.driver", "resources/chromedriver.exe");
+      //  this.driver2 = new ChromeDriver();
+
+        System.setProperty("webdriver.gecko.driver", "resources/geckodriver.exe");
+        FirefoxOptions options = new FirefoxOptions();
+        options.setHeadless(false);
+
+        this.driver = new FirefoxDriver(options);
+        wait = new WebDriverWait(driver, 10);
+    }
+
 @AfterEach
 public void tearDown() {
     driver.quit();
+   // driver2.quit();
+
+}
+public void loginAdmin(WebDriver drv){
+    LoginPage loginPage = PageFactory.initElements(drv, LoginPage.class);
+    loginPage.logIn("admin@admin.com", "admin1");
+    loginPage.authorPage();
+
 }
     @Test
-    public void CanWeGetMainGUIPageHeadless(){
-    //    driver.get("https://swapi.co/");
-     //   assertTrue(driver.getTitle().contains("Star Wars"));
+    public void canWeGetAuthorByIdFF(){
+        loginAdmin(driver);
+        AuthorsPage authorsPage = PageFactory.initElements(driver, AuthorsPage.class);
+        new WebDriverWait(driver, 5);
+        assertTrue(authorsPage.getAuthor(2).startsWith("Adam Mickiewicz"));
+
+    }
+
+
+    @Test
+    public void canWeCRUDAuthorAddDeleteFF() {
+
+        loginAdmin(driver);
+        new WebDriverWait(driver, 5);
+        AuthorsPage authorsPage = PageFactory.initElements(driver, AuthorsPage.class);
+        int b4add = authorsPage.howManyAuthors();
+        authorsPage.toCreate();
+        authorsPage.createAuthor("Adam", "Malysz");
+        authorsPage.toAuthors();
+        wait.until(ExpectedConditions.titleIs("Authors - BookCatalog"));
+        if (!(b4add + 1 == authorsPage.howManyAuthors())) {
+            assertSame("Jest o jednego autora wiecej", "Nie jest", "Add Nie dziala");
+        } else {
+            authorsPage.deleteLastAuthor();
+            wait.until(ExpectedConditions.titleIs("Authors - BookCatalog"));
+            if (!(b4add == authorsPage.howManyAuthors())) {
+                assertSame("Jest tyle samo autorow co na poczatku", "Nie jest", "Delete Nie dziala");
+            }
+        }
+        if (!authorsPage.getLastAuthor().contains("Ostatni")) {
+            assertSame("Ostatni Autor jest na końcu", "Nie jest", "Usunięto za dużo");
+        } else {
+            assertTrue(true, "CRUD add i delete działają");
+        }
     }
 
     @Test
-    public void LoginCorrectTest() {
-//        HomePage home = new HomePage(driver);
-//        driver.get(home.getWebLink());
-//        home.clickLoginButton();
-//
-//        LoginPage login = new LoginPage(driver);
-//        login.logIn(Strings.getEmail(), Strings.getPassword());
-//
-//        (new WebDriverWait(driver, 10)).until(new ExpectedCondition<Boolean>() {
-//            public Boolean apply(WebDriver d) {
-//                return d.getTitle().toLowerCase().contains("home");
-//            }
-//        });
-//
-//        RepositoriesPage repos = new RepositoriesPage(driver);
-//        Assert.assertNotEquals(0, repos.numberRepos());
+    public void canWeCRUDAuthorEditFF() {
+
+        loginAdmin(driver);
+        new WebDriverWait(driver, 5);
+        AuthorsPage authorsPage = PageFactory.initElements(driver, AuthorsPage.class);
+        String b4edit = authorsPage.getAuthor(6);
+        authorsPage.EditAuthor(17, "Edytowany", "Ziomek");
+        wait.until(ExpectedConditions.titleIs("Authors - BookCatalog"));
+        if (b4edit.equals(authorsPage.getAuthor(6))) {
+            assertSame("Zmiana danych", "Brak zmian", "Edit nie działa");
+        } else {
+            authorsPage.EditAuthor(17, "Podstawowe", "Dane");
+            wait.until(ExpectedConditions.titleIs("Authors - BookCatalog"));
+            assertTrue(b4edit.startsWith(authorsPage.getAuthor(6)));
+        }
     }
 }

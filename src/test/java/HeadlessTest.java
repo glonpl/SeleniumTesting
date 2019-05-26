@@ -1,5 +1,5 @@
-import Pages.BooksPage;
-import Pages.LoginPage;
+import pages.BooksPage;
+import pages.LoginPage;
 import io.github.bonigarcia.SeleniumExtension;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -34,7 +34,7 @@ public class HeadlessTest {
     }
 
     @BeforeEach
-    public void Setup() {
+    public void setup() {
         //  driver.get("http://bookcatalog.azurewebsites.net/Account/Login");
         LoginPage loginPage = PageFactory.initElements(driver, LoginPage.class);
         loginPage.logIn("admin@admin.com", "admin1");
@@ -43,27 +43,27 @@ public class HeadlessTest {
     }
 
     @AfterEach
-    public void Cleanup() {
+    public void cleanup() {
         driver.quit();
         driver2.quit();
     }
 
     @Test
-    public void AreWeLoggedInAsAdminHeadless() {
+    public void areWeLoggedInAsAdminHeadless() {
         new WebDriverWait(driver, 5);
         assertTrue(driver.findElement(By.id("UserName")).getText().contains("admin"));
     }
 
 
     @Test
-    public void AreWeLoggedInAsAdminHeadlessFirefox() {
+    public void areWeLoggedInAsAdminHeadlessFirefox() {
 
         new WebDriverWait(driver2, 5);
         assertTrue(driver2.findElement(By.id("UserName")).getText().contains("admin"));
     }
 
     @Test
-    public void CanWeCountBooksHeadless() {
+    public void canWeCountBooksHeadless() {
 
         LoginPage loginPage = PageFactory.initElements(driver, LoginPage.class);
         loginPage.logIn("admin@admin.com", "admin1");
@@ -80,7 +80,7 @@ public class HeadlessTest {
     }
 
     @Test
-    public void CanWeCountBooksHeadlessFirefox() {
+    public void canWeCountBooksHeadlessFirefox() {
 
         LoginPage loginPage = PageFactory.initElements(driver2, LoginPage.class);
         loginPage.logIn("admin@admin.com", "admin1");
@@ -96,7 +96,7 @@ public class HeadlessTest {
         }
     }
 //    @Test
-//    public void CanWeAddBooksHeadlessFirefox() {
+//    public void canWeAddBooksHeadlessFirefox() {
 //
 //        LoginPage loginPage = PageFactory.initElements(driver2, LoginPage.class);
 //        loginPage.logIn("admin@admin.com", "admin1");
@@ -118,7 +118,7 @@ public class HeadlessTest {
 //
 
     @Test
-    public void CanWeGetToCreatePageHeadless() {
+    public void canWeGetToCreatePageHeadless() {
         LoginPage loginPage = PageFactory.initElements(driver2, LoginPage.class);
         loginPage.logIn("admin@admin.com", "admin1");
         new WebDriverWait(driver2, 5);
@@ -135,7 +135,7 @@ public class HeadlessTest {
 //Nie działa, bo Datepicker narzeka
 
     @Test
-    public void CanWeGetToCreatePageHeadlessFirefox() {
+    public void canWeGetToCreatePageHeadlessFirefox() {
         LoginPage loginPage = PageFactory.initElements(driver2, LoginPage.class);
         loginPage.logIn("admin@admin.com", "admin1");
         new WebDriverWait(driver2, 5);
@@ -169,7 +169,7 @@ public class HeadlessTest {
     }
 
     @Test
-    public void CanWeGetSearchHeadless() {
+    public void canWeGetSearchHeadless() {
         LoginPage loginPage = PageFactory.initElements(driver, LoginPage.class);
         loginPage.logIn("admin@admin.com", "admin1");
         new WebDriverWait(driver, 5);
@@ -188,7 +188,7 @@ public class HeadlessTest {
 
     @Disabled
     @Test
-    public void CanWeGetSearchHeadlessFirefox() {
+    public void canWeGetSearchHeadlessFirefox() {
         LoginPage loginPage = PageFactory.initElements(driver2, LoginPage.class);
         loginPage.logIn("admin@admin.com", "admin1");
         new WebDriverWait(driver2, 5);
@@ -207,7 +207,7 @@ public class HeadlessTest {
 
 
     @Test
-    public void CanWeGetBookByIdHeadlessFirefox() {
+    public void canWeGetBookByIdHeadlessFirefox() {
         LoginPage loginPage = PageFactory.initElements(driver2, LoginPage.class);
         loginPage.logIn("admin@admin.com", "admin1");
         new WebDriverWait(driver2, 5);
@@ -225,7 +225,7 @@ public class HeadlessTest {
     }
 
     @Test
-    public void CanWeGetBookByIdHeadless() {
+    public void canWeGetBookByIdHeadless() {
         LoginPage loginPage = PageFactory.initElements(driver, LoginPage.class);
         loginPage.logIn("admin@admin.com", "admin1");
         new WebDriverWait(driver, 5);
@@ -243,7 +243,7 @@ public class HeadlessTest {
     }
 
     @Test
-    public void CanWeGetLastBookHeadlessFirefox() {
+    public void canWeGetLastBookHeadlessFirefox() {
         LoginPage loginPage = PageFactory.initElements(driver2, LoginPage.class);
         loginPage.logIn("admin@admin.com", "admin1");
         new WebDriverWait(driver2, 5);
@@ -255,7 +255,7 @@ public class HeadlessTest {
             new WebDriverWait(driver2, 5);
             BooksPage books = PageFactory.initElements(driver2, BooksPage.class);
             books.searchBooks("Krz");
-            assertEquals(1, books.getLastBook());//co ciekawe wyświetla tu 5(czyli wszystkie)
+            assertEquals(1, books.getLastBook());
         }
 
     }
