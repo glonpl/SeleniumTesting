@@ -18,44 +18,46 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @ExtendWith(SeleniumExtension.class)
 public class SwapiTest {
-private WebDriver driver;
+    private WebDriver driver;
+    private WebDriver driver2;
 private WebDriverWait wait;
     public SwapiTest() {
         this.driver = new HtmlUnitDriver();
         wait = new WebDriverWait(driver, 10);
+
+
+        System.setProperty("webdriver.gecko.driver", "resources/geckodriver.exe");
+        FirefoxOptions options = new FirefoxOptions();
+        options.setHeadless(true);
+        this.driver2 = new FirefoxDriver(options);
     }
-    @BeforeEach
-    public void Setup()throws Exception {
-      //  driver.get("http://bookcatalog.azurewebsites.net/Account/Login");
+@BeforeEach
+    public void Setup1()throws Exception {
+        //  driver.get("http://bookcatalog.azurewebsites.net/Account/Login");
         LoginPage loginPage = PageFactory.initElements(driver, LoginPage.class);
         loginPage.logIn("admin@admin.com","admin1");
+        LoginPage loginPage2 = PageFactory.initElements(driver2, LoginPage.class);
+        loginPage2.logIn("admin@admin.com","admin1");
     }
+
     @AfterEach
     public void Cleanup(){
         driver.quit();
-
+driver2.quit();
     }
 
     @Test
     public void AreWeLoggedInAsAdminHeadless(){
-        new WebDriverWait(driver,10);
+        new WebDriverWait(driver,5);
        assertTrue(driver.findElement(By.id("UserName")).getText().contains("admin"));
     }
 
 
     @Test
     public void AreWeLoggedInAsAdminHeadlessFirefox(){
-        driver.quit();
-        System.setProperty("webdriver.gecko.driver", "resources/geckodriver.exe");
-        FirefoxOptions options = new FirefoxOptions();
-        options.setHeadless(true);
-        this.driver = new FirefoxDriver(options);
-        driver.get("http://bookcatalog.azurewebsites.net/Account/Login");
-        new WebDriverWait(driver,5);
-        //LoginPage loginPage = PageFactory.initElements(driver, LoginPage.class);
-        //loginPage.logIn("admin@admin.com","admin1");
-        //new WebDriverWait(driver,5);
-        assertTrue(driver.findElement(By.id("UserName")).getText().contains("admin"));
+
+        new WebDriverWait(driver2,5);
+        assertTrue(driver2.findElement(By.id("UserName")).getText().contains("admin"));
     }
     @Test
     public void CanWeGetMainGUIPageHeadlessa(){
