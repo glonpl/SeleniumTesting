@@ -13,10 +13,11 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class CRUDTest {
-    WebDriverWait wait;
+    public WebDriverWait wait;
     private WebDriver driver;
     //  private WebDriver driver2;
-
+    private String nJst="Nie jest";
+    private String bZm="Brak zmian";
     public CRUDTest() {
         //  System.setProperty("webdriver.chrome.driver", "resources/chromedriver.exe");
         //  this.driver2 = new ChromeDriver();
@@ -65,16 +66,16 @@ public class CRUDTest {
         authorsPage.toAuthors();
         wait.until(ExpectedConditions.titleIs("Authors - BookCatalog"));
         if (!(b4add + 1 == authorsPage.howManyAuthors())) {
-            assertSame("Jest o jednego autora wiecej", "Nie jest", "Add Nie dziala");
+            assertSame("Jest o jednego autora wiecej", nJst, "Add Nie dziala");
         } else {
             authorsPage.deleteLastAuthor();
             wait.until(ExpectedConditions.titleIs("Authors - BookCatalog"));
             if (!(b4add == authorsPage.howManyAuthors())) {
-                assertSame("Jest tyle samo autorow co na poczatku", "Nie jest", "Delete Nie dziala");
+                assertSame("Jest tyle samo autorow co na poczatku", nJst, "Delete Nie dziala");
             }
         }
         if (!authorsPage.getLastAuthor().contains("Ostatni")) {
-            assertSame("Ostatni Autor jest na końcu", "Nie jest", "Usunięto za dużo");
+            assertSame("Ostatni Autor jest na końcu", nJst, "Usunięto za dużo");
         } else {
             assertTrue(true, "CRUD add i delete działają");
         }
@@ -90,7 +91,7 @@ public class CRUDTest {
         authorsPage.EditAuthor(17, "Edytowany", "Ziomek");
         wait.until(ExpectedConditions.titleIs("Authors - BookCatalog"));
         if (b4edit.equals(authorsPage.getAuthor(6))) {
-            assertSame("Zmiana danych", "Brak zmian", "Edit nie działa");
+            assertSame("Zmiana danych", bZm, "Edit nie działa");
         } else {
             authorsPage.EditAuthor(17, "Podstawowe", "Dane");
             wait.until(ExpectedConditions.titleIs("Authors - BookCatalog"));
