@@ -26,10 +26,9 @@ public class HeadlessTest {
     public HeadlessTest() {
         this.driver = new HtmlUnitDriver();
         wait = new WebDriverWait(driver, 10);
-        System.setProperty("webdriver.gecko.driver", "resources/geckodriver.exe");
+        System.setProperty("webdriver.gecko.driver", "resources/geckodriver");
         FirefoxOptions options = new FirefoxOptions();
         options.setHeadless(true);
-
         this.driver2 = new FirefoxDriver(options);
     }
 

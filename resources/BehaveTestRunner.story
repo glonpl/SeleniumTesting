@@ -7,8 +7,13 @@ Then Zobaczę przycisk zaloguj
 Scenario: Nie zaloguje sie
 
 Given Jestem wylogowany
-When Spróbuję się zalogować złymi danymi
+When Spróbuję się zalogować złymi danymi<login><password>
 Then Zobaczę komunikat o błędzie
+Examples:
+|login          |password  |
+|admin@adnin.com|admin1    |
+|mod@mid.com    |moderator1|
+|user@user.com  |user123   |
 
 Scenario: Zaloguje się
 
