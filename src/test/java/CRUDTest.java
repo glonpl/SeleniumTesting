@@ -1,3 +1,5 @@
+import Pages.AuthorsPage;
+import Pages.LoginPage;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebDriver;
@@ -6,21 +8,18 @@ import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import Pages.AuthorsPage;
-import Pages.LoginPage;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class CRUDTest {
     WebDriverWait wait;
     private WebDriver driver;
-  //  private WebDriver driver2;
+    //  private WebDriver driver2;
 
     public CRUDTest() {
-      //  System.setProperty("webdriver.chrome.driver", "resources/chromedriver.exe");
-      //  this.driver2 = new ChromeDriver();
+        //  System.setProperty("webdriver.chrome.driver", "resources/chromedriver.exe");
+        //  this.driver2 = new ChromeDriver();
 
         System.setProperty("webdriver.gecko.driver", "resources/geckodriver");
         FirefoxOptions options = new FirefoxOptions();
@@ -30,20 +29,22 @@ public class CRUDTest {
         wait = new WebDriverWait(driver, 10);
     }
 
-@AfterEach
-public void tearDown() {
-    driver.quit();
-   // driver2.quit();
+    @AfterEach
+    public void tearDown() {
+        driver.quit();
+        // driver2.quit();
 
-}
-public void loginAdmin(WebDriver drv){
-    LoginPage loginPage = PageFactory.initElements(drv, LoginPage.class);
-    loginPage.logIn("admin@admin.com", "admin1");
-    loginPage.authorPage();
+    }
 
-}
+    public void loginAdmin(WebDriver drv) {
+        LoginPage loginPage = PageFactory.initElements(drv, LoginPage.class);
+        loginPage.logIn("admin@admin.com", "admin1");
+        loginPage.authorPage();
+
+    }
+
     @Test
-    public void canWeGetAuthorByIdFF(){
+    public void canWeGetAuthorByIdFF() {
         loginAdmin(driver);
         AuthorsPage authorsPage = PageFactory.initElements(driver, AuthorsPage.class);
         new WebDriverWait(driver, 5);

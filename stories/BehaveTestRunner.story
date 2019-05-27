@@ -32,3 +32,16 @@ Scenario: Wejdę na stronę główną
 Given Jestem wylogowany
 When spróbuję wejść na stronę
 Then Zobaczę tytuł strony głównej
+
+Scenario: Nie dodam niepoprawnych autorów
+
+Given Jestem zalogowany jako admin na stronie autorów
+When Spróbuję dodać niepoprawnych autorów
+Then Zobaczę komunikat o niepowodzeniu
+
+
+Scenario: Nie dodam autorów bez imienia
+
+Given Jestem zalogowany jako admin na stronie autorów
+When Spróbuję dodać autora bez imienia
+Then Zobaczę komunikat o pustym polu

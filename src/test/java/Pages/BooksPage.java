@@ -1,4 +1,5 @@
 package Pages;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -35,16 +36,16 @@ public class BooksPage {
     private List<WebElement> tableContent;
 
 
-    public BooksPage(WebDriver driver){
+    public BooksPage(WebDriver driver) {
         this.driver = driver;
     }
 
-    public void toCreate(){
+    public void toCreate() {
         driver.get("http://bookcatalog.azurewebsites.net/Books/Create");
 
     }
 
-    public void createBook(String title, String length, String date, String price, String authorID){
+    public void createBook(String title, String length, String date, String price, String authorID) {
         this.title.sendKeys(title);
         this.length.sendKeys(length);
         this.releaseDate.sendKeys(date);
@@ -54,23 +55,22 @@ public class BooksPage {
         this.authorID.submit();
     }
 
-    public void searchBooks(String searchPhrase){
+    public void searchBooks(String searchPhrase) {
         searchBar.sendKeys(searchPhrase);
         searchBar.submit();
     }
 
-    public String getBook(int id){
+    public String getBook(int id) {
         WebElement tr = driver.findElement(By.xpath("(//table[@class='table']/tbody/tr)[" + id + "]"));
         return tr.getText();
     }
 
 
-
-    public int howManyBooks(){
+    public int howManyBooks() {
         return tableContent.size();
     }
 
-    public List<WebElement> getBooks(){
+    public List<WebElement> getBooks() {
         return tableContent;
     }
 

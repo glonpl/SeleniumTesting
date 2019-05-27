@@ -7,13 +7,13 @@ import org.openqa.selenium.support.FindBy;
 public class LoginPage {
     public String UsernameLoggedin;
     public WebDriver driver;
-    @FindBy(id="Email")
+    @FindBy(id = "Email")
     private WebElement emailField;
 
-    @FindBy(id="Password")
+    @FindBy(id = "Password")
     private WebElement passwordField;
 
-    @FindBy(id="LoginButton")
+    @FindBy(id = "LoginButton")
     private WebElement loginButton;
 
     @FindBy(id = "UserName")
@@ -30,45 +30,40 @@ public class LoginPage {
     private WebElement logoutForm;
 
 
-
-
     public LoginPage(WebDriver driver) {
 
-this.driver= driver;
+        this.driver = driver;
         driver.get("http://bookcatalog.azurewebsites.net/Account/Login");
     }
 
-    public void fillEmail(String email)
-    {
+    public void fillEmail(String email) {
         emailField.clear();
         if (email != null)
             emailField.sendKeys(email);
     }
 
-    public void fillPassword(String password)
-    {
+    public void fillPassword(String password) {
         passwordField.clear();
         if (password != null)
             passwordField.sendKeys(password);
     }
 
-    public void logOut(){
+    public void logOut() {
         logoutForm.submit();
     }
 
-    public void logIn(String email, String password)
-    {
+    public void logIn(String email, String password) {
         fillEmail(email);
-        UsernameLoggedin=email;
+        UsernameLoggedin = email;
         fillPassword(password);
         loginButton.click();
     }
 
-    public void authorPage(){
+    public void authorPage() {
         authorsLink.click();
     }
 
-    public void bookPage(){
+    public void bookPage() {
         booksLink.click();
     }
 

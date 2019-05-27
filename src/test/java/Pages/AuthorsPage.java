@@ -1,4 +1,5 @@
 package Pages;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -85,13 +86,13 @@ public class AuthorsPage {
         WebElement tr = driver.findElement(By.xpath("(//table[@class='table']/tbody/tr)[last()]"));
         return tr.getText();
     }
-    public Boolean findUnvalidMessage(String message){
+
+    public Boolean findUnvalidMessage(String message) {
         return validationError.getText().contains(message);
     }
 
 
-
-    public void deleteLastAuthor(){
+    public void deleteLastAuthor() {
         WebElement tr = driver.findElement(By.xpath("(//table[@class='table']/tbody/tr[last()]/td[last()]/a[last()])"));
         driver.navigate().to(tr.getAttribute("href"));
         authorDelete.submit();

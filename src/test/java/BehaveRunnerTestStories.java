@@ -17,7 +17,7 @@ import java.util.List;
 
 public class BehaveRunnerTestStories extends JUnitStories {
     @Override
-    public Configuration configuration(){
+    public Configuration configuration() {
         return new MostUsefulConfiguration().useStoryReporterBuilder(getReporter()).
                 useStoryLoader(new LoadFromURL());
     }
@@ -36,7 +36,7 @@ public class BehaveRunnerTestStories extends JUnitStories {
                 new ArrayList<String>(), "file:");
     }
 
-    private StoryReporterBuilder getReporter(){
+    private StoryReporterBuilder getReporter() {
         return new StoryReporterBuilder().withPathResolver(new FilePrintStreamFactory.ResolveToSimpleName()
         ).withDefaultFormats().withFormats(Format.CONSOLE, Format.HTML);
     }
