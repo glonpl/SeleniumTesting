@@ -26,6 +26,11 @@ public class LoginPage {
     private WebElement booksLink;
 
 
+    @FindBy(id = "logoutForm")
+    private WebElement logoutForm;
+
+
+
 
     public LoginPage(WebDriver driver) {
 
@@ -47,7 +52,9 @@ this.driver= driver;
             passwordField.sendKeys(password);
     }
 
-
+    public void logOut(){
+        logoutForm.submit();
+    }
 
     public void logIn(String email, String password)
     {

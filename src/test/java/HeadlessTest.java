@@ -255,7 +255,7 @@ public class HeadlessTest {
             new WebDriverWait(driver2, 5);
             BooksPage books = PageFactory.initElements(driver2, BooksPage.class);
             books.searchBooks("Krz");
-            assertEquals(1, books.getLastBook());
+            assertTrue(books.getLastBook().startsWith("Harry Potter And"));
         }
 
     }
