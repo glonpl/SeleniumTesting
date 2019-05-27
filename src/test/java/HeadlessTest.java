@@ -19,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(SeleniumExtension.class)
 public class HeadlessTest {
-    WebDriverWait wait;
+    public WebDriverWait wait;
     private WebDriver driver;
     private WebDriver driver2;
 
@@ -33,7 +33,7 @@ public class HeadlessTest {
     }
 
     @BeforeEach
-    public void setup() {
+    public void prepare() {
         //  driver.get("http://bookcatalog.azurewebsites.net/Account/Login");
         LoginPage loginPage = PageFactory.initElements(driver, LoginPage.class);
         loginPage.logIn("admin@admin.com", "admin1");
