@@ -22,7 +22,7 @@ public class CRUDTest {
       //  System.setProperty("webdriver.chrome.driver", "resources/chromedriver.exe");
       //  this.driver2 = new ChromeDriver();
 
-        System.setProperty("webdriver.gecko.driver", "resources/geckodriver.exe");
+        System.setProperty("webdriver.gecko.driver", "resources/geckodriver");
         FirefoxOptions options = new FirefoxOptions();
         options.setHeadless(false);
 
