@@ -16,9 +16,6 @@ public class LoginPage {
     @FindBy(id = "LoginButton")
     private WebElement loginButton;
 
-    @FindBy(id = "UserName")
-    private WebElement userNameLabel;
-
     @FindBy(id = "AuthorsLink")
     private WebElement authorsLink;
 
