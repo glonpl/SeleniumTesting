@@ -65,7 +65,7 @@ public class CRUDTest {
         authorsPage.createAuthor("Adam", "Malysz");
         authorsPage.toAuthors();
         wait.until(ExpectedConditions.titleIs("Authors - BookCatalog"));
-        if (!(b4add + 1 == authorsPage.howManyAuthors())) {
+        if (b4add + 1 != authorsPage.howManyAuthors()) {
             assertSame("Jest o jednego autora wiecej", nJst, "Add Nie dziala");
         } else {
             authorsPage.deleteLastAuthor();
