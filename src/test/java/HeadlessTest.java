@@ -1,5 +1,5 @@
-import pages.BooksPage;
-import pages.LoginPage;
+import Pages.BooksPage;
+import Pages.LoginPage;
 import io.github.bonigarcia.SeleniumExtension;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
