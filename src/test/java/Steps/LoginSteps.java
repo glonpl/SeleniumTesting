@@ -21,7 +21,7 @@ public class LoginSteps extends Steps {
     private static WebDriverWait wait;
     @Given("Jestem zalogowany jako admin")
     public void givenIAmLoggedInAsAdmin(){
-        System.setProperty("webdriver.gecko.driver", "resources/geckodriver.exe");
+        System.setProperty("webdriver.gecko.driver", "resources/geckodriver");
         driver = new FirefoxDriver();
         wait = new WebDriverWait(driver, 5);
         LoginPage loginPage = PageFactory.initElements(driver, LoginPage.class);
@@ -30,7 +30,7 @@ public class LoginSteps extends Steps {
     }
     @Given("Jestem zalogowany jako admin na stronie autorów")
     public void givenIAmLoggedInAsAdminOnAuthorsPage(){
-        System.setProperty("webdriver.gecko.driver", "resources/geckodriver.exe");
+        System.setProperty("webdriver.gecko.driver", "resources/geckodriver");
         driver = new FirefoxDriver();
         wait = new WebDriverWait(driver, 5);
         LoginPage loginPage = PageFactory.initElements(driver, LoginPage.class);
@@ -40,7 +40,7 @@ public class LoginSteps extends Steps {
     }
     @Given("Jestem wylogowany")
     public void givenIAmLoggedOut(){
-        System.setProperty("webdriver.gecko.driver", "resources/geckodriver.exe");
+        System.setProperty("webdriver.gecko.driver", "resources/geckodriver");
         driver = new FirefoxDriver();
         wait = new WebDriverWait(driver, 5);
         LoginPage loginPage = PageFactory.initElements(driver, LoginPage.class);
